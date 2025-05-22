@@ -84,6 +84,25 @@ def main():
     timeout = int(os.getenv("SQL_TIMEOUT", "5"))
     sslmode = os.getenv("SQL_SSLMODE", "prefer")
     webhook_url = os.getenv("RESULTS_WEBHOOK_URL", "")
+    hosts_json_file = os.getenv("HOSTS_JSON_FILE", "")
+
+    # Check if JSON file is provided and read hosts from it if available
+    if hosts_json_file and os.path.exists(hosts_json_file):
+        try:
+            with open(hosts_json_file, 'r') as f:
+                hosts_data = json.load(f)
+            
+            # If JSON file has postgres_hosts, use those
+            if "postgres_hosts" in hosts_data and isinstance(hosts_data["postgres_hosts"], list):
+                postgres_hosts = ','.join(hosts_data["postgres_hosts"])
+            
+            # If JSON file has redshift_hosts, use those
+            if "redshift_hosts" in hosts_data and isinstance(hosts_data["redshift_hosts"], list):
+                redshift_hosts = ','.join(hosts_data["redshift_hosts"])
+                
+            print(f"Loaded hosts from JSON file: {hosts_json_file}")
+        except Exception as e:
+            print(f"Error reading hosts JSON file: {str(e)}")
 
     results = []
 

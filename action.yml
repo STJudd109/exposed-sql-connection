@@ -19,6 +19,9 @@ inputs:
     description: "Port to check (default: 5439)"
     required: false
     default: "5439"
+  hosts_json_file:
+    description: "Path to a JSON file containing host information (format: {\"postgres_hosts\": [\"host1\", \"host2\"], \"redshift_hosts\": [\"host3\"]})"
+    required: false
   timeout:
     description: "Connection timeout in seconds (default: 5)"
     required: false
@@ -39,6 +42,7 @@ runs:
     POSTGRES_PORT: ${{ inputs.postgres_port }}
     REDSHIFT_HOSTS: ${{ inputs.redshift_hosts }}
     REDSHIFT_PORT: ${{ inputs.redshift_port }}
+    HOSTS_JSON_FILE: ${{ inputs.hosts_json_file }}
     SQL_TIMEOUT: ${{ inputs.timeout }}
     SQL_SSLMODE: ${{ inputs.sslmode }}
     RESULTS_WEBHOOK_URL: ${{ inputs.webhook_url }}
