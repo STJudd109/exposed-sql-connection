@@ -1,6 +1,9 @@
 name: "Postgres Exposure Check"
 description: "Checks if provided Postgres hosts are publicly exposed by testing with invalid credentials"
 author: "stjudd109"
+branding:
+  icon: 'alert-octagon'
+  color: 'red'
 inputs:
   postgres_hosts:
     description: "Comma-separated list of hostnames or IPs to check"
